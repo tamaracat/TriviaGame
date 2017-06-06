@@ -2,13 +2,11 @@
 
     var number = 50;
     var intervalId;
-    var global_random=0;
     var win=0;
     var lose=0;
     var global_iterator=0;
     var global_stop=false;
 
-    var Random_Number_Array = [];
 
   var Artists = [
   {
@@ -59,24 +57,23 @@
     //  The run function sets an interval
     //  that runs the decrement function once a second.
     
+var TriviaGame = {
 
-function start() {
+start: function() {
 
-  next_question_in_object();
+  TriviaGame.next_question_in_object();
   
-}
+},
+next_question_in_object: function(){
 
-function next_question_in_object(){
+    intervalId = setInterval(TriviaGame.decrement, 1000); 
 
-    intervalId = setInterval(decrement, 1000); 
+    TriviaGame.select_and_display_next_question();
 
-    select_and_display_next_question();
-
-    add_questions_to_array();
+    TriviaGame.add_questions_to_array();
    
-}
-    //  The decrement function.
-function decrement() {
+},
+decrement: function() {
 
       //  Decrease number by one.
       number--;
@@ -92,52 +89,37 @@ function decrement() {
 
         //  ...run the stop function.
         stop();
-
-        //  Alert the user that time is up.
-        // alert("Your Time is Up!");
       }
 
       
-}
-
-    //  The stop function
-function stop() {
+},
+stop: function() {
 
 
     clearInterval(intervalId);
-}
-
-function generate_random_number_for_answers(){
+},
+generate_random_number_for_answers: function(){
 
 		curr_random_number = Math.floor((Math.random() * 3) +2);
 
 		// console.log(curr_random_number);
 
 	return curr_random_number;
-}
-
-function select_and_display_next_question(){
+},
+select_and_display_next_question: function(){
 
 
  	$("#question").html(Artists[global_iterator].question);
 
 
-}
- 
-function add_questions_to_array(){
+},
+add_questions_to_array: function(){
 
- 	need_button_questions = [];
+ 	button_question_iterator = [];
 
   var number_of_questions=3;
 
- 	var new_random_number = generate_random_number_for_answers();
-
  	for(var j=0; j<=number_of_questions; j++){
-
- 		if( new_random_number !== need_button_questions[j]){
-
- 				need_button_questions[j] = new_random_number;
-
  				// console.log(need_button_questions[j]);
  				if( j === 1){
  					$("#button1").html(Artists[global_iterator].answer1);
@@ -148,13 +130,13 @@ function add_questions_to_array(){
  				else if(j ===3){
  					$("#button3").html(Artists[global_iterator].correct);
  				}
- 			// end if if statement
- 			}
+ 			
+ 			
 // end of for loop
   }
  	
- }
-function checkanswer(){
+},
+checkanswer: function(){
 
   var answer = ($(this).html());
 
@@ -177,16 +159,16 @@ function checkanswer(){
 
     if( global_iterator < Artists.length ){
 
-      next_question_in_object();
+      TriviaGame.next_question_in_object();
     }
     else{
 
-      tally_score();
+      TriviaGame.tally_score();
     }
     
 	
-}
-function tally_score(){
+},
+tally_score: function(){
 
   if( win > lose){
 
@@ -203,22 +185,30 @@ function tally_score(){
     $("#score").html("<h3>"+ "You Lost :(" + "</h3>");
 
   }
+  number=0;
+  // Reset display
+  $("#question").html("Trivia Question");
 
-}
-function new_game(){
+  $("#button1").html("Answer 1");
+   
+  $("#button2").html("Answer 2");
+       
+  $("#button3").html("Answer 2");
+
+},
+
+new_game: function(){
 
  	location.reload();
+  TriviaGame.start();
 
- }
+ },
+};
 
- $("#start").on("click", start);
- $("#reset").on("click", new_game);
- $("#button1").click(checkanswer);
- $("#button2").click(checkanswer);
- $("#button3").click(checkanswer);
+ $("#start").on("click", TriviaGame.start);
+ $("#reset").on("click", TriviaGame.new_game);
+ $("#button1").click(TriviaGame.checkanswer);
+ $("#button2").click(TriviaGame.checkanswer);
+ $("#button3").click(TriviaGame.checkanswer);
 
   
- 
- 
-    //  Execute the run function.
-    // start();
