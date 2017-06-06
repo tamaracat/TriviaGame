@@ -197,9 +197,15 @@ tally_score: function(){
 
 },
 
+new_game: function(){
+
+ 	location.reload();
+
+ },
 };
 
  $("#start").on("click", TriviaGame.start);
+ $("#reset").on("click", TriviaGame.new_game);
  $("#button1").click(TriviaGame.checkanswer);
  $("#button2").click(TriviaGame.checkanswer);
  $("#button3").click(TriviaGame.checkanswer);
