@@ -5,6 +5,8 @@
     var global_random=0;
     var win=0;
     var lose=0;
+    var global_iterator=0;
+    var global_stop=false;
 
     var Random_Number_Array = [];
 
@@ -36,66 +38,45 @@
     answer1: "Charcoal Renderings",
     answer2: "Flowers",
     correct: "Family Portraits"
-  }
+  },
+  {
+    name: "Adrian Piper",
+    question: "What kind of art did Adrian Piper create?",
+    answer1: "Oil Painter",
+    answer2: "Sculpter",
+    correct: "Performance Artist"
+    
+  },
+  {
+    name: "Claude Cahun",
+    question: "What is a fact about Claude Cahun?",
+    answer1: "She portrayed herself in no clothes",
+    answer2: "She was Canadian",
+    correct: "She portrayed herself in mens clothes"
+    
+  },
   ];
     //  The run function sets an interval
     //  that runs the decrement function once a second.
     
 
-    function start() {
+function start() {
 
+  next_question_in_object();
+  
+}
 
-    	var random_number = generate_random_number();
+function next_question_in_object(){
 
-      while ( Random_Number_Array.length < 4){
+    intervalId = setInterval(decrement, 1000); 
 
-        console.log(Random_Number_Array.length);
+    select_and_display_next_question();
 
-        if(Random_Number_Array.find(Load_Random_Array)){
-      
-        var random_number = generate_random_number();
-
-        Random_Number_Array.push(random_number);
-
-        global_random = random_number;
-
-        console.log(Random_Number_Array.length);
-        }
-        else{
-
-          Random_Number_Array.push(random_number);
-
-        global_random = random_number;
-
-        
-        new_game();
-
-        }
-      }
-        global_random = random_number;
-
-        Random_Number_Array.push(global_random);
-
-        Load_Random_Array(global_random);
-
- 		     select_and_display_random_question(global_random);
-
- 		     add_questions_to_array(global_random);
-
-          intervalId = setInterval(decrement, 1000); 
-      
+    add_questions_to_array();
    
-    return random_number;
-        
-
-    }
-    function Load_Random_Array(random_number){
-
-      return random_number;
-
-    }
+}
     //  The decrement function.
-    function decrement() {
+function decrement() {
 
       //  Decrease number by one.
       number--;
@@ -113,101 +94,118 @@
         stop();
 
         //  Alert the user that time is up.
-        alert("Your Time is Up!");
+        // alert("Your Time is Up!");
       }
-    }
+
+      
+}
 
     //  The stop function
-    function stop() {
-
-      clearInterval(intervalId);
-    }
-function generate_random_number(){
+function stop() {
 
 
-	var random_number = Math.floor((Math.random() * 4 ) +1);
-
-	return random_number;
+    clearInterval(intervalId);
 }
+
 function generate_random_number_for_answers(){
 
 		curr_random_number = Math.floor((Math.random() * 3) +2);
 
-		console.log(curr_random_number);
+		// console.log(curr_random_number);
 
 	return curr_random_number;
 }
 
-function select_and_display_random_question(random_number){
+function select_and_display_next_question(){
 
- 	$("#question").html(Artists[random_number].question);
 
- 	console.log(Artists[random_number].question);
+ 	$("#question").html(Artists[global_iterator].question);
 
-}
-
-function display_questions(random_number){
-
- 	$("#button1").html(Artists[random_number].question);
-
- 	console.log(Artists[random_number].question);
 
 }
  
- function add_questions_to_array(curr_random_number){
+function add_questions_to_array(){
 
  	need_button_questions = [];
 
- 	for(var i=0; i<4; i++){
- 	
- 		var new_random_number = generate_random_number_for_answers();
- 		for(var j=0; j<4; j++){
- 			if( new_random_number !== need_button_questions[j]){
+  var number_of_questions=3;
+
+ 	var new_random_number = generate_random_number_for_answers();
+
+ 	for(var j=0; j<=number_of_questions; j++){
+
+ 		if( new_random_number !== need_button_questions[j]){
 
  				need_button_questions[j] = new_random_number;
 
- 				console.log(need_button_questions[j]);
+ 				// console.log(need_button_questions[j]);
  				if( j === 1){
- 					$("#button1").html(Artists[curr_random_number].answer1);
+ 					$("#button1").html(Artists[global_iterator].answer1);
  				}
  				if( j === 2){
- 					$("#button2").html(Artists[curr_random_number].answer2);
+ 					$("#button2").html(Artists[global_iterator].answer2);
  				}
  				else if(j ===3){
- 					$("#button3").html(Artists[curr_random_number].correct);
+ 					$("#button3").html(Artists[global_iterator].correct);
  				}
- 				
+ 			// end if if statement
  			}
-
- 			console.log(Artists[curr_random_number].answer1);
-
-  		}
- 
- 	}
+// end of for loop
+  }
  	
  }
 function checkanswer(){
 
   var answer = ($(this).html());
 
-  console.log(Artists[global_random].correct);
+   if( answer === Artists[global_iterator].correct ){
 
-   if( answer === Artists[global_random].correct ){
-
-      alert("You Win!");
-      stop();
+      // alert("You Win!");
       win++;
+     
+        $("#score").html("<h3>" + "Correct!" + "</h3>");
+     
     } 
     else{
-      alert("You Lose!");
-      stop();
+      // alert("You Lose!");
       lose++
+      
+        $("#score").html("<h3>"+ "Wrong :(" + "</h3>");
+     
     }
+    global_iterator +=1;
 
-    start();
+    if( global_iterator < Artists.length ){
+
+      next_question_in_object();
+    }
+    else{
+
+      tally_score();
+    }
+    
 	
 }
- function new_game(){
+function tally_score(){
+
+  if( win > lose){
+
+    $("#score").html("<h3>"+ "You Won!" + "</h3>");
+
+  }
+  if( win === lose){
+
+    $("#score").html("<h3>"+ "Tied Game!" + "</h3>");
+
+  }
+  else if(win < lose){
+
+    $("#score").html("<h3>"+ "You Lost :(" + "</h3>");
+
+  }
+
+}
+function new_game(){
 
  	location.reload();
 
