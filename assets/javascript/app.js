@@ -1,15 +1,21 @@
 window.onload = function() {
 
-  document.getElementById("you_won").src="assets/images/flower.jpeg";
+  document.getElementById("you_won").src=images[0];
+  
+    
 };
 
 
     var number = 75;
     var intervalId;
+    var intervalIdImages;
     var win=0;
     var lose=0;
     var global_iterator=0;
     var global_stop=false;
+
+
+
 
   var images = ['assets/images/ClaudeCahun.jpg', 'assets/images/ClaudeCahun2.jpg','assets/images/AdrianPiper3.jpg',
   'assets/images/AdrianPiper2.jpg','assets/images/AdrianPiper.jpg','assets/images/JaneHawkins2.jpg',
@@ -68,6 +74,9 @@ window.onload = function() {
 var TriviaGame = {
 
 start: function() {
+
+  document.getElementById("you_won").src=images[0];
+   TriviaGame.iterate();
 
   TriviaGame.next_question_in_object();
   
@@ -132,14 +141,6 @@ stop: function() {
     //Clears Interval with specific interval ID
     clearInterval(intervalId);
 },
-generate_random_number_for_answers: function(){
-
-		curr_random_number = Math.floor((Math.random() * 3) +2);
-
-		// console.log(curr_random_number);
-
-	return curr_random_number;
-},
 generate_random_number: function(){
 
     curr_random_number = Math.floor((Math.random() * images.length) +1);
@@ -185,21 +186,22 @@ tally_score: function(){
   if( win > lose){
 
     $("#score").html("<h3>"+ "You Won!" + "</h3>");
-    // $("#you_won").html("src=assets/images/flower.jpeg");
-    // document.getElementById("you_won").src="assets/images/georgia.jpeg";
-    var random_num = TriviaGame.generate_random_number();
-    console.log(random_num);
-    document.getElementById("you_won").src=images[random_num];
+    
+    clearInterval(intervalIdImages);
+    document.getElementById("you_won").src='assets/images/winner.jpeg';
     
   }
   if( win === lose){
 
     $("#score").html("<h3>"+ "Tied Game!" + "</h3>");
+    clearInterval(intervalIdImages);
 
   }
   else if(win < lose){
 
     $("#score").html("<h3>"+ "You Lost :(" + "</h3>");
+    clearInterval(intervalIdImages);
+    document.getElementById("you_won").src='assets/images/lost.png';
 
   }
   number=0;
@@ -219,6 +221,19 @@ new_game: function(){
  	location.reload();
 
  },
+iterate: function(){
+
+      var counter = 0;
+      var intervalIdImages = setInterval(function(){TriviaGame.display_images(counter);counter++;
+        if(counter === images.length-1) {
+        counter = 0;
+        }}, 2000);
+      
+},
+display_images: function (i){
+
+        document.getElementById("you_won").src=images[i];    
+ }, 
 };
 
 
