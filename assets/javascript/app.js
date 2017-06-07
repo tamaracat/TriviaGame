@@ -1,6 +1,6 @@
 
 
-    var number = 50;
+    var number = 75;
     var intervalId;
     var win=0;
     var lose=0;
@@ -56,7 +56,7 @@
   ];
     //  The run function sets an interval
     //  that runs the decrement function once a second.
-    
+   
 var TriviaGame = {
 
 start: function() {
@@ -68,9 +68,36 @@ next_question_in_object: function(){
 
     intervalId = setInterval(TriviaGame.decrement, 1000); 
 
-    TriviaGame.select_and_display_next_question();
+    function select_and_display_next_question(){
 
-    TriviaGame.add_questions_to_array();
+      $("#question").html(Artists[global_iterator].question);
+
+    } // end of function select_and_display_next_question
+
+    function add_questions_to_array(){
+
+      button_question_iterator = [];
+
+      var number_of_questions=3;
+
+      for(var j=0; j<=number_of_questions; j++){
+        // console.log(need_button_questions[j]);
+        if( j === 1){
+          $("#button1").html(Artists[global_iterator].answer1);
+        }
+        if( j === 2){
+          $("#button2").html(Artists[global_iterator].answer2);
+        }
+        else if(j ===3){
+          $("#button3").html(Artists[global_iterator].correct);
+        }       
+    // end of for loop
+      }
+    } //end of unction add_questions_to_array
+
+    select_and_display_next_question();
+
+    add_questions_to_array();
    
 },
 decrement: function() {
@@ -94,8 +121,7 @@ decrement: function() {
       
 },
 stop: function() {
-
-
+    //Clears Interval with specific interval ID
     clearInterval(intervalId);
 },
 generate_random_number_for_answers: function(){
@@ -106,36 +132,7 @@ generate_random_number_for_answers: function(){
 
 	return curr_random_number;
 },
-select_and_display_next_question: function(){
 
-
- 	$("#question").html(Artists[global_iterator].question);
-
-
-},
-add_questions_to_array: function(){
-
- 	button_question_iterator = [];
-
-  var number_of_questions=3;
-
- 	for(var j=0; j<=number_of_questions; j++){
- 				// console.log(need_button_questions[j]);
- 				if( j === 1){
- 					$("#button1").html(Artists[global_iterator].answer1);
- 				}
- 				if( j === 2){
- 					$("#button2").html(Artists[global_iterator].answer2);
- 				}
- 				else if(j ===3){
- 					$("#button3").html(Artists[global_iterator].correct);
- 				}
- 			
- 			
-// end of for loop
-  }
- 	
-},
 checkanswer: function(){
 
   var answer = ($(this).html());
@@ -173,7 +170,8 @@ tally_score: function(){
   if( win > lose){
 
     $("#score").html("<h3>"+ "You Won!" + "</h3>");
-
+    // $("#you_won").html("src=assets/images/flower.jpeg");
+    document.getElementById("you_won").src="assets/images/flower.jpeg";
   }
   if( win === lose){
 
@@ -204,10 +202,12 @@ new_game: function(){
  },
 };
 
+
  $("#start").on("click", TriviaGame.start);
  $("#reset").on("click", TriviaGame.new_game);
  $("#button1").click(TriviaGame.checkanswer);
  $("#button2").click(TriviaGame.checkanswer);
  $("#button3").click(TriviaGame.checkanswer);
+
 
   

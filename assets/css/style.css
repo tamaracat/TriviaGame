@@ -3,7 +3,6 @@ body {
   font-size: 18px;
   line-height: 34px;
   color: #777;
-  background: url("../images/concrete_seamless.png");
 }
 
 * {
@@ -80,7 +79,7 @@ h3 {
   float: left;
   width: 450px;
   height: 90px;
-  font-family: Georgia, Times, "Times New Roman", serif;
+  font-family: "Lucida Console", Monaco, monospace;
   font-size: 30px;
   font-weight: 700;
   line-height: 90px;
@@ -132,38 +131,16 @@ h3 {
 }
 .inside_container {
   float: relative;
-  margin: 20px;
-  width: 650px;
+  margin: 50px;
+  width: 800px;
   overflow: auto;
   clear: both;
   background: #ffffff;
   padding: 100px;
 }
-.inside_images{
-  float: relative;
-  margin: 20px;
-  width: 650px;
-  clear: both;
-  background: #ffffff;
-  text-align: center;
-}
-.random_number{
-  float: relative;
-  margin: 20px;
-  width: 100px;
-  height: 100px;
-  clear: both;
-  background: #ffffff;
-  padding:20px;
-}
-.wins_losses{
-  float: relative;
-  margin: 20px;
-  width: 125px;
-  height:100px;
-  /*clear: both;*/
-  background: #ffffff;
-  padding:20px;
+.inside_image{
+  height: 150px;
+  width: 200px;
 }
 .total_score{
   float: relative;
@@ -174,19 +151,11 @@ h3 {
   background: #ffffff;
   padding:20px;
 }
-.crystal_value{
-  float: relative;
-  margin: 20px;
-  width: 200px;
-  height: 100px;
-  clear: both;
-  background: #ffffff;
-  padding:20px;
-}
 
-.small_image {
-  width: 75px;
-  height: 75px;
-
-
+.sidebar {
+  float: right;
+  width: 100%;
+  max-width: 270px;
+  padding: 30px;
+  margin-bottom: 20px;
 }
