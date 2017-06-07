@@ -139,8 +139,8 @@ h3 {
   padding: 100px;
 }
 .inside_image{
-  height: 150px;
-  width: 200px;
+  height: 200px;
+  width: 250px;
 }
 .total_score{
   float: relative;
@@ -156,6 +156,7 @@ h3 {
   float: right;
   width: 100%;
   max-width: 270px;
-  padding: 30px;
-  margin-bottom: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+  clear: both;
 }

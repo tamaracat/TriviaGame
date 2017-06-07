@@ -1,3 +1,7 @@
+window.onload = function() {
+
+  document.getElementById("you_won").src="assets/images/flower.jpeg";
+};
 
 
     var number = 75;
@@ -6,6 +10,10 @@
     var lose=0;
     var global_iterator=0;
     var global_stop=false;
+
+  var images = ['assets/images/ClaudeCahun.jpg', 'assets/images/ClaudeCahun2.jpg','assets/images/AdrianPiper3.jpg',
+  'assets/images/AdrianPiper2.jpg','assets/images/AdrianPiper.jpg','assets/images/JaneHawkins2.jpg',
+  'assets/images/lauraAnneFry2.jpeg','assets/images/lauraAnneFry.jpeg','assets/images/MaryCassatt2.jpg','assets/images/georgia.jpeg']
 
 
   var Artists = [
@@ -17,8 +25,8 @@
     correct: "Flowers"
   },
   {
-    name: "Mary Cassatte",
-    question: "Which one is a title of a Mary Cassatte painting ?",
+    name: "Mary Cassatt",
+    question: "Which one is a title of a Mary Cassatt painting ?",
     answer1: "Winter Time",
     answer2: "The Boating Trip",
     correct: "Summertime"
@@ -132,7 +140,14 @@ generate_random_number_for_answers: function(){
 
 	return curr_random_number;
 },
+generate_random_number: function(){
 
+    curr_random_number = Math.floor((Math.random() * images.length) +1);
+
+    // console.log(curr_random_number);
+
+  return curr_random_number;
+},
 checkanswer: function(){
 
   var answer = ($(this).html());
@@ -171,7 +186,11 @@ tally_score: function(){
 
     $("#score").html("<h3>"+ "You Won!" + "</h3>");
     // $("#you_won").html("src=assets/images/flower.jpeg");
-    document.getElementById("you_won").src="assets/images/flower.jpeg";
+    // document.getElementById("you_won").src="assets/images/georgia.jpeg";
+    var random_num = TriviaGame.generate_random_number();
+    console.log(random_num);
+    document.getElementById("you_won").src=images[random_num];
+    
   }
   if( win === lose){
 
@@ -191,7 +210,7 @@ tally_score: function(){
    
   $("#button2").html("Answer 2");
        
-  $("#button3").html("Answer 2");
+  $("#button3").html("Answer 3");
 
 },
 
